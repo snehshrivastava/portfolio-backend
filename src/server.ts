@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import TestModel from './models/test';
 import { errorHandler } from './middlewares/errorHandler';
 import { indexRouter } from './routes/indexRouter';
+import cors from 'cors';
 let db: any;
 export const server = async () => {
 
@@ -17,6 +18,7 @@ export const server = async () => {
     const app = express();
     const port = process.env.PORT || 3000;
 
+    app.use(cors());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     // app.use('/api/v1/', UserRouter);
@@ -35,7 +37,6 @@ export const server = async () => {
         });
     });
     app.use(errorHandler);
-
     app.listen(port, () => {
         console.log(`Server running at http://localhost:${port}`);
     });
