@@ -22,7 +22,7 @@ const user = (req: Request, res: Response, next: NextFunction) => {
     const decodedData: any = validateJwtToken(token);
     req.headers.user_id = decodedData.user_id;
 
-    if (decodedData.roles.includes("user")) {
+    if (decodedData.roles.includes("user") || decodedData.roles.includes("admin")) {
         next();
     }
     res.status(401).send("Not Authorized");
